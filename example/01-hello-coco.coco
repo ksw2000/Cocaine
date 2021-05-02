@@ -1,0 +1,7 @@
+; The first cocaine language program in the world
+
+import:
+    io
+
+main:                           ; main segment
+	io.echo "Hello coco"        ; call function
