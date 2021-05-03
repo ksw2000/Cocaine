@@ -1,0 +1,26 @@
+import:
+	io
+
+main:
+    num i32 1450
+
+    if num == 1450
+        io.echoln "一試舞靈"
+    
+    idiot f32 9.2
+    blue  f32 9.2
+
+    if idiot < blue
+        io.echoln "blue != idot"
+    else idiot > blue
+        io.echoln "blue != idot"
+    else
+        io.echoln "blue is idot"
+    
+end:
+    if (condition)
+        ; TODO
+    else (condition)
+        ; TODO
+    else
+        ; TODO
