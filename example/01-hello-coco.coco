@@ -4,4 +4,4 @@ import:
     io
 
 main:                           ; main segment
-	io.echo "Hello coco"        ; call function
+    io.echo "Hello coco"        ; call function
