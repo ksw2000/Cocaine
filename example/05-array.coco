@@ -28,12 +28,12 @@ main:
     io.echof "%p\n" list1           ; 0x0000009487 (just example)
     io.echof "%v\n" list1           ; 0x0000009487 (%v will print in default format)
 
-    io.echof "%b\n" (list1 == list2)        ; false
-                                            ; %b will echo `true` of `false` like Go
+    io.echof "%t\n" (list1 == list2)        ; false
+                                            ; %t will echo `true` of `false` like Go
                                             ; list1's address is not equal to list2
-    io.echof "%b\n" (*list1 == *list2)      ; true
+    io.echof "%t\n" (*list1 == *list2)      ; true
                                             ; because 1 == 1
-    io.echof "%b\n" (list1[] == list2[])    ; true
+    io.echof "%t\n" (list1[] == list2[])    ; true
                                             ; because [1, 2, 3, 4, 5] == [1, 2, 3, 4, 5]
 
     ;-------------------------------------------------------------
@@ -54,13 +54,13 @@ main:
 
     list5 *rune "marijuana"
 
-    io.echof "%b\n" (list4 == list5)            ; false
+    io.echof "%t\n" (list4 == list5)            ; false
                                                 ; list4's address is not equal to list5
-    io.echof "%b\n" (*list4 == *list5)          ; true
+    io.echof "%t\n" (*list4 == *list5)          ; true
                                                 ; because 'm' == 'm'
-    io.echof "%b\n" (*list4 == 'm')             ; true
-    io.echof "%b\n" (list4[] == list5[])        ; true
-    io.echof "%b\n" (list4[] == "marijuana")    ; true
+    io.echof "%t\n" (*list4 == 'm')             ; true
+    io.echof "%t\n" (list4[] == list5[])        ; true
+    io.echof "%t\n" (list4[] == "marijuana")    ; true
     
     ; syntax error
     ; list4 == "marijuana"
