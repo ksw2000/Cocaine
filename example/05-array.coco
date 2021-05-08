@@ -35,17 +35,19 @@ main:
                                             ; because 1 == 1
     io.echof "%t\n" (list1[] == list2[])    ; true
                                             ; because [1, 2, 3, 4, 5] == [1, 2, 3, 4, 5]
+    io.echof "%t\n" (list1[] == list3[])    ; false
+                                            ; because [1, 2, 3, 4, 5] != [0, 0, 0, 0, 0]
 
     ;-------------------------------------------------------------
     io.echoln list4.len             ; 10
                                     ; include the last rune `\0`
-    io.echoln list4[]               ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a']
+    io.echoln list4[]               ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a', '\0']
     io.echoln list4[0]              ; m
     io.echoln *list4                ; m
     io.echoln list4                 ; marijuana
 
     io.echof "%u\n" list4.len       ; 10
-    io.echof "%s\n" list4[]         ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a']
+    io.echof "%s\n" list4[]         ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a', '\0']
     io.echof "%c\n" list1[0]        ; m
     io.echof "%c\n" *list4          ; m
     io.echof "%s\n" list4           ; marijuana
@@ -68,8 +70,8 @@ main:
     ;-------------------------------------------------------------
     ; Cocaine see pointers as arrays
     
-    number *i32 30
-    pointer *i32 &number
+    number i32 30                   ; int number = 32           in C
+    pointer *i32 &number            ; int *pointer = &number    in C
 
     io.echoln pointer.len           ; 1
     io.echoln pointer[]             ; [30]
@@ -77,3 +79,8 @@ main:
     io.echoln *pointer              ; 30
     io.echoln pointer               ; 0x0000001450 (just example)
 
+end:
+    Cocaine will save the length of array
+    .len is read-only
+    list1.len = 2
+    will error when compiling
