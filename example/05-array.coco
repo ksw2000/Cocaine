@@ -1,0 +1,79 @@
+import:
+    io
+
+main:
+    ; declare 1D static array before executing 
+    list1 *i32 1, 2, 3, 4, 5    ; int list1[] = {1, 2, 3, 4, 5}     in C
+    list2 *i32 5 dup ?          ; int list2[5]                      in C
+    list3 *i32 5 dup 0          ; int list3[5] = {0, 0, 0, 0, 0}    in C
+    list4 *rune "marijuana"     ; char *list4 = "marijuana"         in C
+
+    list2[0] = 1
+    list2[1] = 2
+    list2[2] = 3
+    list2[3] = 4
+    list2[4] = 5
+
+    ;-------------------------------------------------------------
+    io.echoln list1.len             ; 5
+    io.echoln list1[]               ; [1, 2, 3, 4, 5]
+    io.echoln list1[0]              ; 1
+    io.echoln *list1                ; 1
+    io.echoln list1                 ; 0x0000009487 (just example)
+
+    io.echof "%u\n" list1.len       ; 5
+    io.echof "%s\n" list1[]         ; [1, 2, 3, 4, 5]
+    io.echof "%d\n" list1[0]        ; 1
+    io.echof "%d\n" *list1          ; 1
+    io.echof "%p\n" list1           ; 0x0000009487 (just example)
+    io.echof "%v\n" list1           ; 0x0000009487 (%v will print in default format)
+
+    io.echof "%b\n" (list1 == list2)        ; false
+                                            ; %b will echo `true` of `false` like Go
+                                            ; list1's address is not equal to list2
+    io.echof "%b\n" (*list1 == *list2)      ; true
+                                            ; because 1 == 1
+    io.echof "%b\n" (list1[] == list2[])    ; true
+                                            ; because [1, 2, 3, 4, 5] == [1, 2, 3, 4, 5]
+
+    ;-------------------------------------------------------------
+    io.echoln list4.len             ; 10
+                                    ; include the last rune `\0`
+    io.echoln list4[]               ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a']
+    io.echoln list4[0]              ; m
+    io.echoln *list4                ; m
+    io.echoln list4                 ; marijuana
+
+    io.echof "%u\n" list4.len       ; 10
+    io.echof "%s\n" list4[]         ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a']
+    io.echof "%c\n" list1[0]        ; m
+    io.echof "%c\n" *list4          ; m
+    io.echof "%s\n" list4           ; marijuana
+    io.echof "%p\n" list4           ; 0x0000000689 (just example)
+    io.echof "%v\n" list4           ; marijuana
+
+    list5 *rune "marijuana"
+
+    io.echof "%b\n" (list4 == list5)            ; false
+                                                ; list4's address is not equal to list5
+    io.echof "%b\n" (*list4 == *list5)          ; true
+                                                ; because 'm' == 'm'
+    io.echof "%b\n" (*list4 == 'm')             ; true
+    io.echof "%b\n" (list4[] == list5[])        ; true
+    io.echof "%b\n" (list4[] == "marijuana")    ; true
+    
+    ; syntax error
+    ; list4 == "marijuana"
+
+    ;-------------------------------------------------------------
+    ; Cocaine see pointers as arrays
+    
+    number *i32 30
+    pointer *i32 &number
+
+    io.echoln pointer.len           ; 1
+    io.echoln pointer[]             ; [30]
+    io.echoln pointer[0]            ; 30
+    io.echoln *pointer              ; 30
+    io.echoln pointer               ; 0x0000001450 (just example)
+
