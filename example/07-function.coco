@@ -1,0 +1,80 @@
+import:
+    io
+    os
+
+global:
+    ; SYNTAX
+    ; .(function_name) (@params), (@args)
+
+    ; (1) a simgple function
+    .addition i32, a i32, b i32, c i32      ; int addition(int a, int b, int c){    in C
+        ret a + b + c                       ;     return a+b+c;}
+
+    ; (2) name the result value
+    .abs res i32, num i32                   ; func abs(num int32) (res int32){      in Go
+        if num < 0                          ;     if num < 0 {
+            res = -num                      ;         res = -num
+        else                                ;     else{
+            res = num                       ;         res = num
+                                            ;     }
+                                            ; }
+    ; (3) no result value
+    .echoErr , s *rune                      ; void echoErr(char* s){                in C
+        io.fechof os.stderr "%s", s         ;     fprintf(stderr, "%s", s);}
+
+    ; (4) variadic function
+    .sum i32, nums ...i32                   ; func sum(nums ...int) int {           in Go
+        res i32 0                           ;     var res int 0
+        for i u8 0, i < nums.len, inc i     ;     for _, num = range nums {
+            add res nums[i]                 ;         res += num
+        ret res                             ;     }
+                                            ;     return res
+                                            ; }
+
+    .echoSum , nums ...i32                  ; func echoSum(nums ...int){            in Go
+        res i32 sum nums...                 ;     res := sum(nums...)
+        io.echoln res                       ;     fmt.Println(res)
+                                            ; }
+
+    ; (5) default value
+    .myEcho , s *rune, ln bool false        ; function myEcho($str, $ln = false){   in PHP
+        if ln                               ; if($ln){
+            io.echo s                       ;     echo $str;
+        else                                ; else{
+            io.echoln s                     ;     echo $str."\n";
+                                            ; }
+
+main:
+    ; How to call function?
+    ; Very like Coffeescript, but we use space to separate parameters not comma
+    
+    a i32 10
+    b i32 20
+    c i32 30
+
+    res i32 ?
+    res = addition a b c                    ; res = addition a, b, c                in Coffee
+    io.echoln res                   ; 60    ; console.log res                       in Coffee
+    io.echoln (addition (a+1) b c)  ; 61    ; console.log addition a+1, b, c        in Coffee
+
+    d i32 -10
+    io.echoln (abs d)                       ; console.log abs d                     in Coffee
+                                            ; fmt.Println(abs(d))                   in Go
+                                            ; printf("%d\n", abs(d))                in C
+end:
+    some mnemonics in Cocaine
+
+    a and b are integer or unsigned interger
+
+    inc a               ; a++
+    dec b               ; b--
+    add a b             ; a += b
+    sub a b             ; a -= b
+    mul a b             ; a = a * b         ; there is no imul because we know the type of a and b
+    div a b             ; a = a / b         ; there is no idiv because we know the type of a and b
+    neg a               ; a = -a
+
+    and a b             ; a = a & b
+    or  a b             ; a = a | b
+    xor a b             ; a = a ^ b
+    not a b             ; a = ~a
