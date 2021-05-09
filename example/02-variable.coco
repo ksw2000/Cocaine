@@ -26,7 +26,8 @@ in-built variable
 --------------------------------------------------------------------------------
 i8, i16, i32, i64   signed integer
 u8, u16, u32, u64   unsigned int
-r                   rune, Cocaine use UTF-8 for representing a rune, and the 
+bool                boolean, true or false
+rune                rune, Cocaine use UTF-8 for representing a rune, and the 
                     size of rune is as same as i32
 f32, f64            respectably represent for IEEE754 single- and double- 
                     precision floating-point
@@ -37,8 +38,9 @@ f32, f64            respectably represent for IEEE754 single- and double-
 --------------------------------------------------------------------------------
 Cocaine language reference a lot of languages
 --------------------------------------------------------------------------------
-i, u, f32, f64 are referenced by Rust
-r is referenced by Go
+i, u, f32, f64  are referenced by Rust
+bool, rune      are referenced by Go
+*any            is referenced by C
 
 ? for uninitialized value is referenced by NASM
 --------------------------------------------------------------------------------
