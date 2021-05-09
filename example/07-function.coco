@@ -4,7 +4,7 @@ import:
 
 global:
     ; SYNTAX
-    ; .(function_name) (@params), (@args)
+    ; .(function_name) (@return), (@parameters)
 
     ; (1) a simgple function
     .addition i32, a i32, b i32, c i32      ; int addition(int a, int b, int c){    in C
