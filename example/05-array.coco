@@ -3,10 +3,10 @@ import:
 
 main:
     ; declare 1D static array before executing 
-    list1 *i32 1, 2, 3, 4, 5    ; int list1[] = {1, 2, 3, 4, 5}     in C
-    list2 *i32 dup 5 ?          ; int list2[5]                      in C
-    list3 *i32 dup 5 0          ; int list3[5] = {0, 0, 0, 0, 0}    in C
-    list4 *rune "marijuana"     ; char *list4 = "marijuana"         in C
+    list1 i32 1, 2, 3, 4, 5    ; int list1[] = {1, 2, 3, 4, 5}     in C
+    list2 i32 dup 5 ?          ; int list2[5]                      in C
+    list3 i32 dup 5 0          ; int list3[5] = {0, 0, 0, 0, 0}    in C
+    list4 rune "marijuana"     ; char *list4 = "marijuana"         in C
 
     list2[0] = 1
     list2[1] = 2
@@ -18,21 +18,18 @@ main:
     io.echoln list1.len             ; 5
     io.echoln list1[]               ; [1, 2, 3, 4, 5]
     io.echoln list1[0]              ; 1
-    io.echoln *list1                ; 1
-    io.echoln list1                 ; 0x0000009487 (just example)
+    io.echoln list1                 ; 1
 
     io.echof "%u\n" list1.len       ; 5
     io.echof "%s\n" list1[]         ; [1, 2, 3, 4, 5]
     io.echof "%d\n" list1[0]        ; 1
-    io.echof "%d\n" *list1          ; 1
-    io.echof "%p\n" list1           ; 0x0000009487 (just example)
-    io.echof "%v\n" list1           ; 0x0000009487 (%v will print in default format)
+    io.echof "%d\n" list1           ; 1
+    io.echof "%v\n" list1           ; 1 (%v can print in default format)
 
-    io.echof "%t\n" (list1 == list2)        ; false
-                                            ; %t will echo `true` of `false` like Go
-                                            ; list1's address is not equal to list2
-    io.echof "%t\n" (*list1 == *list2)      ; true
-                                            ; because 1 == 1
+    ; %t can echo `true` of `false` like Go
+    
+    io.echof "%t\n" (list1 == list2)        ; true
+                                            ; because [1, 2, 3, 4, 5] == [1, 2, 3, 4, 5]
     io.echof "%t\n" (list1[] == list2[])    ; true
                                             ; because [1, 2, 3, 4, 5] == [1, 2, 3, 4, 5]
     io.echof "%t\n" (list1[] == list3[])    ; false
@@ -43,44 +40,31 @@ main:
                                     ; include the last rune `\0`
     io.echoln list4[]               ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a', '\0']
     io.echoln list4[0]              ; m
-    io.echoln *list4                ; m
     io.echoln list4                 ; marijuana
 
     io.echof "%u\n" list4.len       ; 10
     io.echof "%s\n" list4[]         ; ['m', 'a', 'r', 'i', 'j', 'u', 'a', 'n', 'a', '\0']
-    io.echof "%c\n" list1[0]        ; m
-    io.echof "%c\n" *list4          ; m
+    io.echof "%c\n" list4[0]        ; m
+    io.echof "%c\n" list4           ; m
     io.echof "%s\n" list4           ; marijuana
-    io.echof "%p\n" list4           ; 0x0000000689 (just example)
     io.echof "%v\n" list4           ; marijuana
 
-    list5 *rune "marijuana"
+    list5 rune "marijuana"
 
-    io.echof "%t\n" (list4 == list5)            ; false
-                                                ; list4's address is not equal to list5
-    io.echof "%t\n" (*list4 == *list5)          ; true
-                                                ; because 'm' == 'm'
-    io.echof "%t\n" (*list4 == 'm')             ; true
+    io.echof "%t\n" (list4 == list5)            ; true
+    io.echof "%t\n" (list4 == "marijuana")      ; true
     io.echof "%t\n" (list4[] == list5[])        ; true
     io.echof "%t\n" (list4[] == "marijuana")    ; true
     
-    ; syntax error
-    ; list4 == "marijuana"
-
-    ;-------------------------------------------------------------
-    ; Cocaine see pointers as arrays
-    
-    number i32 30                   ; int number = 32           in C
-    pointer *i32 &number            ; int *pointer = &number    in C
-
-    io.echoln pointer.len           ; 1
-    io.echoln pointer[]             ; [30]
-    io.echoln pointer[0]            ; 30
-    io.echoln *pointer              ; 30
-    io.echoln pointer               ; 0x0000001450 (just example)
-
 end:
-    Cocaine will save the length of array
-    .len is read-only
-    list1.len = 2
-    will error when compiling
+    Notice:
+    (1) Cocaine will save the length of array
+    (2) .len is read-only
+        list1.len = 2
+        will error when compiling
+    (3) We can see all variable as array
+        
+        foo i32 12
+        io.echof "%d" foo       ; 12
+        io.echof "%s" foo[]     ; [12]
+        io.echof "%u" foo.len   ; 1
