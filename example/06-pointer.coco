@@ -4,7 +4,7 @@ import:
 main:
     p *f32 ?                    ; float *p = NULL               in C    NOTE[0]
     new p                       ; p = malloc(sizeof(float))     in C
-    *p = 9.2                    ; *p = 32                       in C
+    *p = 9.2                    ; *p = 9.2                      in C
 
     io.echof "%f\n" *p          ; 9.2
     io.echof "%p\n" p           ; 0x0000000689 (just example)
@@ -15,8 +15,46 @@ main:
     io.echoln p2                ; 0
 
     ; SHORTHAND NOTE[1]
-    p3 *i32 !                   ; int p3 = calloc(1, sizeof(int)) in c
-                                ; var p3 *int = new(int)          in Go
+    p3 *i32 !                   ; int p3 = calloc(1, sizeof(int))   in C
+                                ; var p3 *int = new(int)            in Go
+
+    ; --------------------------------------------------------------------
+    ; Declare more space
+    
+    p4 *f32 ?                   ; float *p4 = NULL
+    new p4 3                    ; *p4 = malloc(sizeof(float) * 3)   in C
+    *p4     = 10                ; p4[0] = 10                        in C
+    *(p4+1) = 20                ; p4[1] = 20                        in C
+    *(p4+2) = 30                ; p4[2] = 30                        in C
+    io.echof "%d\n" p4.len      ; 3                                 NOTE[2]
+
+    ; --------------------------------------------------------------------
+    ; How to copy a pointer?
+
+    ; (1) Just copy address
+    p5 *f32 ?                   ; float *p5 = NULL              in C
+    p5 = p                      ; p5 = p                        in C
+    *p5 = *p5 + 1               ; *p5 = *p5 + 1                 in C
+    io.echof "%f\n" *p5         ; 10.2
+    io.echof "%f\n" *p          ; 10.2 (p is influenced by p5)
+
+    ; (2) Copy only one content
+    p6 *f32 ?                   ; float *p6 = NULL              in C
+    new p6                      ; p6 = malloc(sizeof(float))    in C
+    *p6 = *p                    ; *p6 = *p                      in C
+    io.echof "%f\n" *p6         ; 10.2
+    io.echof "%f\n" *p          ; 9.2 (p is not influenced by p5)
+
+    ; (3) Copy multiple contents
+    p7 *f32 ?
+    new p7 p4.len
+    *p7 = *p4
+    *(p7+1) = *(p4+1)
+    *(p7+2) = *(p4+2)
+
+    ; SHORTHAND
+    p8 *f32 ?
+    copy p8 p4
 
 end:
 NOTE
@@ -30,6 +68,18 @@ NOTE
     | 14 | 
     
     can simplify to => p2 *f32 !
+
+2.  Cocaine knows pointer's length
+    Explain how `new` work
+
+    | 25 | new p4 3
+
+    void new(void* pointer, size_t length){
+        // allocate space to pointer
+        // declare new variable whoes name is pointer.len
+    }
+    p4.len is just a variable named p4.len.
+    Besides, p4.len is read-only.
 
 ------------------------------------------------------------------------------------
 new v.s. init
