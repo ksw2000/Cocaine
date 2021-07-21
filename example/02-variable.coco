@@ -43,4 +43,11 @@ bool, rune      are referenced by Go
 *any            is referenced by C
 
 ? for uninitialized value is referenced by NASM
+! for automatically initialize value
+    - i8, i16, i32, i64     default     0
+    - u8, u16, u32, u64     default     0
+    - bool                  default     false
+    - rune                  default     \0
+    - f32, f64              default     0
+    - *any                  default     nil
 --------------------------------------------------------------------------------
