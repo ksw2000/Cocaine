@@ -2,43 +2,38 @@ import:
     io
 
 main:
-    p *f32 ?                    ; float *p = NULL               in C
-    p = new f32.size            ; p = malloc(sizeof(float))     in C
+    p *f32 ?                    ; float *p = NULL               in C    NOTE[0]
+    new p                       ; p = malloc(sizeof(float))     in C
     *p = 9.2                    ; *p = 32                       in C
 
-    io.echof "%f" *p            ; 9.2
-    io.echof "%s" p[]           ; [9.2]
-    io.echof "%p" p             ; 0x0000000689 (just example)
+    io.echof "%f\n" *p          ; 9.2
+    io.echof "%p\n" p           ; 0x0000000689 (just example)
 
-    list *f32 new f32.size 5    ; float *list = malloc(sizeof(float) * 5)
-    list[] = [1.0, 2.0, 3.0, 4.0, 5.0]
+    p2 *f32 ?
+    init p2                     ; p2 = calloc(1, sizeof(float)) in C
+                                ; p2 = new(float)               in Go
+    io.echoln p2                ; 0
 
-    io.echof "%f" *list         ; 1.0
-    io.echof "%s" list[]        ; [1.0, 2.0, 3.0, 4.0, 5.0]
-    io.echof "%p" list          ; 0x0000000817 (just example)
+    ; SHORTHAND NOTE[1]
+    p3 *i32 !                   ; int p3 = calloc(1, sizeof(int)) in c
+                                ; var p3 *int = new(int)          in Go
 
-    ;------------------------------------------------------------------
-
-    p2 *i32 p1
-    io.echof "%f" *p2           ; 9.2
-    io.echof "%s" p2[]          ; [9.2]
-    io.echof "%p" p2            ; 0x0000000689 (just example)
-
-    list2 *i32 list1
-    io.echof "%f" *list2        ; 1.0
-    
 end:
-NOTICE THAT
-1.  p *f32 ?
+NOTE
+0.  | 05 |p *f32 ?
     
     "?" here will assign a default value `nil` same as `NULL` in C or `nil` in Go
 
-2.  list[] = [1.0, 2.0, 3.0, 4.0, 5.0]
+1.  | 11 |
+    | 12 | p2 *f32 ?
+    | 13 | init p2
+    | 14 | 
     
-    is same as
+    can simplify to => p2 *f32 !
 
-    list[0] = 1.0
-    list[1] = 2.0
-    list[2] = 3.0
-    list[3] = 4.0
-    list[4] = 5.0
+------------------------------------------------------------------------------------
+new v.s. init
+
+new will allcoate a space but not initialize. like malloc() in C
+
+init will not only allocate a space but also initialize zero. like calloc() in C
