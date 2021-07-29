@@ -1,9 +1,9 @@
 ; This is an example for variables
 
-import:
+import
     io
 
-main:                       ; func main()                   in Go
+main                        ; func main()                   in Go
     num_a i32 -10           ; var num_a int32 = -10         in Go
     num_b u32 20            ; var num_b uint32 = 20         in Go
     num_c f32 3.14          ; var num_c float32 = 3.14      in Go
@@ -19,7 +19,7 @@ main:                       ; func main()                   in Go
     io.echo   "$num_c\n"    ; print("$num_c\n")             in Dart
     io.echo   "$num_d\n"    ; print an uninitialized value  in C
     
-end:    ; all the text after end segement will be ignore
+end     ; all the text after end segement will be ignore
     
 --------------------------------------------------------------------------------
 in-built variable

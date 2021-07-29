@@ -1,8 +1,8 @@
-import:
+import
     io
     os
 
-global:
+func
     ; SYNTAX
     ; .(function_name) (@return), (@parameters)
 
@@ -44,7 +44,7 @@ global:
             io.echoln s                     ;     echo $str."\n";
                                             ; }
 
-main:
+main
     ; How to call function?
     ; Very like Coffeescript, but we use space to separate parameters not comma
     
@@ -61,7 +61,7 @@ main:
     io.echoln (abs d)                       ; console.log abs d                     in Coffee
                                             ; fmt.Println(abs(d))                   in Go
                                             ; printf("%d\n", abs(d))                in C
-end:
+end
     some mnemonics in Cocaine
 
     a and b are integer or unsigned interger

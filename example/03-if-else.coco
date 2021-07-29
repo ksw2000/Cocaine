@@ -1,7 +1,7 @@
-import:
+import
 	io
 
-main:
+main
     num i32 1450
 
     if num == 1450
@@ -17,7 +17,7 @@ main:
     else
         io.echoln "blue is idot"
     
-end:
+end
     if (condition)
         ; TODO
     else (condition)

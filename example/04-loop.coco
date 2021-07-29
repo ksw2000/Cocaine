@@ -1,7 +1,7 @@
-import:
+import
 	io
 
-main:
+main
     for counter i8 0, counter < 10, inc counter
         io.echof "%d, " counter
     
@@ -63,7 +63,7 @@ main:
     ;         break
 
 
-end:
+end
     There are 3 kinds of usage of for loop
     
     First: 3 parameters

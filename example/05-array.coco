@@ -1,7 +1,7 @@
-import:
+import
     io
 
-main:
+main
     ; declare 1D static array before executing 
     list1 i32 1, 2, 3, 4, 5    ; int list1[] = {1, 2, 3, 4, 5}     in C
     list2 i32 dup 5 ?          ; int list2[5]                      in C
@@ -56,7 +56,7 @@ main:
     io.echof "%t\n" (list4[] == list5[])        ; true
     io.echof "%t\n" (list4[] == "marijuana")    ; true
     
-end:
+end
     Notice:
     (1) Cocaine will save the length of array
     (2) .len is read-only
