@@ -3,9 +3,9 @@ import
 
 main
     year i64 2021
-    c.print "The primary Cocaine Compiler is created in %d", year
+    c.printf "The primary Cocaine Compiler is created in %d", year
     mov year 2022
-    c.print "The primary Cocaine Compiler is created in %d", year
+    c.printf "The primary Cocaine Compiler is created in %d", year
 
 end
     blablabla
