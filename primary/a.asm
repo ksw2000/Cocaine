@@ -3,14 +3,15 @@ extern printf
 
 section .data
     main.year dq  2021
-    main.$var1 db  "The primary Cocaine Compiler is created in %d", 0
+    main.$annony1 db  "The primary Cocaine Compiler is created in %d", 0
+    main.$annony2 db  "The primary Cocaine Compiler is created in %d", 0
 
 section .text
 main:
     push    rcx
     push    rdx
     sub     rsp, 32
-    mov     rcx, main.$var1
+    mov     rcx, main.$annony1
     mov     rdx, [main.year]
     call    printf
     add     rsp, 32
@@ -21,7 +22,7 @@ main:
     push    rcx
     push    rdx
     sub     rsp, 32
-    mov     rcx, main.$var1
+    mov     rcx, main.$annony2
     mov     rdx, [main.year]
     call    printf
     add     rsp, 32
